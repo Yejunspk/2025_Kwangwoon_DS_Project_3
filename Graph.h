@@ -16,21 +16,30 @@
 
 using namespace std;
 
+// Base graph interface (adjacency retrieval/insert/print).
 class Graph{	
 protected:
-	bool m_Type;
-	int m_Size;
+	bool m_Type;   // true: adjacency list, false: adjacency matrix (or user-defined meaning)
+	int m_Size;    // number of vertices
 
 public:
 	Graph(bool type, int size);
 	virtual ~Graph();
 
+	// Accessors
 	bool getType();	
 	int getSize();
 
+	// Adjacency providers
+	// getAdjacentEdges: undirect view (out + in)
+	// getAdjacentEdgesDirect: direct view (out only)
 	virtual void getAdjacentEdges(int vertex, map<int, int>* m) = 0;		
 	virtual void getAdjacentEdgesDirect(int vertex, map<int, int>* m) = 0;	
+
+	// Insert weighted edge u->v with weight
 	virtual void insertEdge(int from, int to, int weight) = 0;				
+
+	// Print the graph to fout in required format
 	virtual	bool printGraph(ofstream *fout) = 0;
 };
 

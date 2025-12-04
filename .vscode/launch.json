@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug run (make -> ./run)",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/run",     // 실행 파일: a.out 아님!
+      "args": [],                              
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "miDebuggerPath": "/usr/bin/gdb",
+      "preLaunchTask": "make"                  // 디버그 전에 make 실행
+    }
+  ]
+}
