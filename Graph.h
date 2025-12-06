@@ -16,11 +16,11 @@
 
 using namespace std;
 
-// Base graph interface (adjacency retrieval/insert/print).
+// Base graph  (adjacency retrieval/insert/print).
 class Graph{	
 protected:
-	bool m_Type;   // true: adjacency list, false: adjacency matrix (or user-defined meaning)
-	int m_Size;    // number of vertices
+	bool m_Type;   // true: adjacency list, false: adjacency matrix
+	int m_Size;    // vertices number
 
 public:
 	Graph(bool type, int size);
