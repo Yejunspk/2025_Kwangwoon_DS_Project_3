@@ -12,20 +12,20 @@ ListGraph::~ListGraph()
 	delete [] m_List;
 }
 
-void ListGraph::getAdjacentEdges(int vertex, std::map<int, int>* out) // undirected view
+void ListGraph::getAdjacentEdges(int vertex, std::map<int, int>* out) // undirect view
 {
 	out->clear();
 	if(vertex < 0 || vertex >= m_Size) return;
 
-	// 1) outgoing neighbors
+	// 1) outgoing neighbor
 	for(const auto& kv : m_List[vertex]) {
 		(*out)[kv.first] = kv.second;
 	}
-	// 2) incoming neighbors become neighbors as well (treat as undirected)
+	// 2) incoming neighbor
 	for(int u = 0; u < m_Size; ++u) {
 		auto it = m_List[u].find(vertex);
 		if(it != m_List[u].end()) {
-			// avoid overriding an existing smaller weight if both directions exist with different weights
+			// avoid overriding 
 			if(out->find(u) == out->end()) (*out)[u] = it->second;
 			else (*out)[u] = std::min((*out)[u], it->second);
 		}
@@ -51,7 +51,7 @@ bool ListGraph::printGraph(std::ofstream *fout)
 {
 	if(!fout || !fout->is_open()) return false;
 
-	(*fout) << "========PRINT========\n";
+	(*fout) << "========PRINT=======\n";
 	for(int u = 0; u < m_Size; ++u) {
 		(*fout) << "[" << u << "]";
 		if(!m_List[u].empty()) {

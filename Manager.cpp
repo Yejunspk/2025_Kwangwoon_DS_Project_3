@@ -10,8 +10,8 @@
 Manager::Manager()	
 {
 	graph = nullptr;	
-	// overwrite log.txt as required (not append)
-	fout.open("log.txt", ios::out | ios::trunc); // 새로 저장
+	// overwrite log.txt 
+	fout.open("log.txt", ios::out | ios::trunc); //save as newthing
 	load = 0;
 }
 
@@ -45,7 +45,7 @@ void Manager::run(const char* command_txt){
 
 		std::string cmd = tk[0];
 
-		// All commands are uppercase as per spec; proceed.
+		// All commands are uppercase as per spec
 		if(cmd == "LOAD"){
 			if(tk.size() != 2){ printErrorCode(100); continue; }
 			LOAD(tk[1].c_str());
@@ -137,10 +137,7 @@ bool Manager::LOAD(const char* filename)
 
 	if(type_char=='L'){
 		// Robust parser for adjacency list:
-		// Accepts lines like:
-		// "0 1 2 3 4" (means from=0, edges (1,2),(3,4))
-		// or two-line style:
-		// "0"  then next line "1 2 3 4"
+		// Accepts lines like: "0 1 2 3 4" (means from=0, edges (1,2),(3,4)) or two-line style: "0"  then next line "1 2 3 4"
 		int current_from = -1;
 		std::string line;
 		while(std::getline(gin, line)){

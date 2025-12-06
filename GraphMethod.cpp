@@ -14,22 +14,22 @@ using std::cout;
 using std::endl;
 
 // ---------- Utilities ----------
-static void getNeighbors(Graph* g, char option, int u, std::map<int,int>& adj) {
+static void viewNeighbors(Graph* g, char option, int u, std::map<int,int>& adj) {
 	if(option == 'O') g->getAdjacentEdgesDirect(u, &adj);
 	else g->getAdjacentEdges(u, &adj);
 }
 
-static bool hasNegativeEdge(Graph* g, char option) {
+static bool has_neg_edge(Graph* g, char option) {
 	int n = g->getSize();
 	std::map<int,int> m;
 	for(int u=0; u<n; ++u) {
-		getNeighbors(g, option, u, m);
+		viewNeighbors(g, option, u, m);
 		for(auto& kv : m) if(kv.second < 0) return true;
 	}
 	return false;
 }
 
-static bool isConnectedUndirected(Graph* g) {
+static bool is_connected_undir(Graph* g) {
 	int n = g->getSize();
 	if(n == 0) return false;
 	std::vector<int> visited(n, 0);
@@ -66,7 +66,7 @@ bool BFS(Graph* graph, char option, int vertex)
 		int u = q.front(); q.pop();
 		order.push_back(u);
 		std::map<int,int> adj;
-		getNeighbors(graph, option, u, adj);
+		viewNeighbors(graph, option, u, adj);
 		for(const auto& kv : adj){ // map keeps ascending order
 			int v = kv.first;
 			if(!visited[v]) {
@@ -90,7 +90,7 @@ static void dfsRec(Graph* g, char option, int u, std::vector<int>& visited, std:
 	visited[u]=1;
 	order.push_back(u);
 	std::map<int,int> adj;
-	getNeighbors(g, option, u, adj);
+	viewNeighbors(g, option, u, adj);
 	for(const auto& kv: adj) {
 		int v = kv.first;
 		if(!visited[v]) dfsRec(g, option, v, visited, order);
@@ -129,7 +129,7 @@ bool Kruskal(Graph* graph)
 {
 	int n = graph->getSize();
 	// connectivity check
-	if(!isConnectedUndirected(graph)) {
+	if(!is_connected_undir(graph)) {
 		cout << "========ERROR========\n";
         cout << "500\n";
         cout << "======================\n\n";
@@ -184,7 +184,7 @@ bool Kruskal(Graph* graph)
 // ---------- Dijkstra ----------
 bool Dijkstra(Graph* graph, char option, int start)
 {
-	if(hasNegativeEdge(graph, option)) {
+	if(has_neg_edge(graph, option)) {
 		cout << "========ERROR========\n600\n======================\n\n";
 		return false;
 	}
@@ -207,7 +207,7 @@ bool Dijkstra(Graph* graph, char option, int start)
 
 		if(d!=dist[u]) continue;
 		std::map<int,int> adj;
-		getNeighbors(graph, option, u, adj);
+		viewNeighbors(graph, option, u, adj);
 		for(const auto& kv: adj){
 			int v = kv.first; int w = kv.second;
 			if(dist[v] > dist[u] + w){
@@ -252,7 +252,7 @@ bool Bellmanford(Graph* graph, char option, int s_vertex, int e_vertex)
 	// Build edge list by option
 	for(int u=0; u<n; ++u){
 		std::map<int,int> adj;
-		getNeighbors(graph, option, u, adj);
+		viewNeighbors(graph, option, u, adj);
 		for(const auto& kv: adj){
 			edges.push_back({u, kv.first, kv.second});
 		}
@@ -317,7 +317,7 @@ bool FLOYD(Graph* graph, char option)
 
 	for(int u=0; u<n; ++u){
 		std::map<int,int> adj;
-		getNeighbors(graph, option, u, adj);
+		viewNeighbors(graph, option, u, adj);
 		for(const auto& kv: adj) d[u][kv.first] = std::min<long long>(d[u][kv.first], kv.second);
 	}
 

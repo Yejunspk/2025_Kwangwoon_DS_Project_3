@@ -5,7 +5,7 @@
 
 class ListGraph : public Graph{	
 private:
-	// adjacency list: m_List[u][v] = weight (
+	// adjacency list: m_List[u][v] = weight 
 	std::map<int, int>* m_List;
 
 public:	
